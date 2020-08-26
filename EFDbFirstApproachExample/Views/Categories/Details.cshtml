@@ -1,0 +1,19 @@
+﻿@model EFDbFirstApproachExample.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Category Details</h2>
+
+<table class="table">
+    <tr>
+        <th>Category ID</th>
+        <td>@Model.CategoryID</td>
+    </tr>
+    <tr>
+        <th>Category Name</th>
+        <td>@Model.CategoryName</td>
+    </tr>
+</table>

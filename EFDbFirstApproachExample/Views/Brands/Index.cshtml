@@ -1,0 +1,116 @@
+﻿@model List<EFDbFirstApproachExample.Models.Brand>
+
+@{
+    ViewBag.Title = "Brands";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Brands</h2>
+
+@Html.ActionLink("Create", "Create", "Brands")
+
+@using (Html.BeginForm("Index", "Brands", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.Label("Search:", new { @class = "mr-1" })
+    @Html.TextBox("search", (string)@ViewBag.search, new { placeholder = "Search", id = "search", @class = "form-control mr-1" })
+    <button type="submit" class="btn btn-primary">GO</button>
+}
+
+
+<table class="table">
+    <tr class="table-secondary">
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                @Html.ActionLink("Brand ID", "Index", "Brands", new { SortColumn = "BrandID", IconClass = "fa-sort-asc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "BrandID")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Brand ID", "Index", "Brands", new { SortColumn = "BrandID", IconClass = "fa-sort-desc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "BrandID")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+        </th>
+        <th style="width:20%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                @Html.ActionLink("Brand Name", "Index", "Brands", new { SortColumn = "BrandName", IconClass = "fa-sort-asc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "BrandName")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Brand Name", "Index", "Brands", new { SortColumn = "BrandName", IconClass = "fa-sort-desc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "BrandName")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+        </th>
+        <th style="width:10%"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.BrandID</td>
+            <td>@item.BrandName</td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Brands", new { id = item.BrandID }, null)|
+                @Html.ActionLink("Edit", "Edit", "Brands", new { id = item.BrandID }, null)|
+                @Html.ActionLink("Delete", "Delete", "Brands", new { id = item.BrandID }, null)|
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="9">
+            @{
+                int PrevPageNo = ViewBag.PageNo - 1;
+                if (PrevPageNo <= 0)
+                {
+                    PrevPageNo = 1;
+                }
+                int NextPageNo = ViewBag.PageNo + 1;
+                if (NextPageNo > ViewBag.NoOfPages)
+                {
+                    NextPageNo = ViewBag.NoOfPages;
+                }
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    @Html.ActionLink("Prev", "Index", "Brands", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = PrevPageNo }, new { @class = "page-link" })
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNo)
+                    {
+                        int pgno = i + 1;
+                        <li class="page-item active">
+                            @Html.ActionLink(Convert.ToString(i + 1), "Index", "Brands", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = (i + 1) }, new { @class = "page-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(Convert.ToString(i + 1), "Index", "Brands", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = (i + 1) }, new { @class = "page-link" })
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    @Html.ActionLink("Next", "Index", "Brands", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = NextPageNo }, new { @class = "page-link" })
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+
+

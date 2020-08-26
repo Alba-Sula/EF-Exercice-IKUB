@@ -1,0 +1,17 @@
+﻿@model EFDbFirstApproachExample.Models.Brand
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Delete Brand</h2>
+
+@using (Html.BeginForm("Delete", "Brands", FormMethod.Post))
+{
+    <h4> Category Name: @Model.BrandName</h4>
+    @Html.HiddenFor(x => x.BrandID)
+
+    <div>Are you sure you want to delete this brand?</div>
+    <button type="submit" class="btn btn-success">Delete</button>
+    @Html.ActionLink("Cancel", "Index", "", new { @class = "btn btn-danger" })
+}

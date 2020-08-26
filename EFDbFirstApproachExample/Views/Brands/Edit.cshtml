@@ -1,0 +1,23 @@
+﻿@model EFDbFirstApproachExample.Models.Brand
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Edit Brand</h2>
+
+@using (Html.BeginForm("Edit", "Brands", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Brand Name")
+            @Html.HiddenFor(x => x.BrandID)
+            @Html.TextBoxFor(x => x.BrandName, new { placeholder = "Brand Name", @class = "form-control" })
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Edit</button>
+    @Html.ActionLink("Cancel", "Index", "", new { @class = "btn btn-danger" })
+}
+

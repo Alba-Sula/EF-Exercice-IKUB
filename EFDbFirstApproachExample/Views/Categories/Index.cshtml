@@ -1,0 +1,115 @@
+﻿@model List<EFDbFirstApproachExample.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Categories</h2>
+
+@Html.ActionLink("Create", "Create", "Categories")
+
+@using (Html.BeginForm("Index", "Categories", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.Label("Search:", new { @class = "mr-1" })
+    @Html.TextBox("search", (string)@ViewBag.search, new { placeholder = "Search", id = "search", @class = "form-control mr-1" })
+    <button type="submit" class="btn btn-primary">GO</button>
+}
+
+
+<table class="table">
+    <tr class="table-secondary">
+        <th style="width:10%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                @Html.ActionLink("Category ID", "Index", "Categories", new { SortColumn = "CategoryID", IconClass = "fa-sort-asc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "CategoryID")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Category ID", "Index", "Categories", new { SortColumn = "CategoryID", IconClass = "fa-sort-desc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "CategoryID")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+        </th>
+        <th style="width:20%">
+            @if (ViewBag.IconClass == "fa-sort-desc")
+            {
+                @Html.ActionLink("Category Name", "Index", "Categories", new { SortColumn = "CategoryName", IconClass = "fa-sort-asc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "CategoryName")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Category Name", "Index", "Categories", new { SortColumn = "CategoryName", IconClass = "fa-sort-desc", PageNo = 1 }, null)
+                if (ViewBag.SortColumn == "CategoryName")
+                {
+                    <i class="fa @ViewBag.IconClass"></i>
+                }
+            }
+        </th>
+        <th style="width:10%"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryID</td>
+            <td>@item.CategoryName</td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Categories", new { id = item.CategoryID }, null)|
+                @Html.ActionLink("Edit", "Edit", "Categories", new { id = item.CategoryID }, null)|
+                @Html.ActionLink("Delete", "Delete", "Categories", new { id = item.CategoryID }, null)|
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="9">
+            @{
+                int PrevPageNo = ViewBag.PageNo - 1;
+                if (PrevPageNo <= 0)
+                {
+                    PrevPageNo = 1;
+                }
+                int NextPageNo = ViewBag.PageNo + 1;
+                if (NextPageNo > ViewBag.NoOfPages)
+                {
+                    NextPageNo = ViewBag.NoOfPages;
+                }
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    @Html.ActionLink("Prev", "Index", "Categories", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = PrevPageNo }, new { @class = "page-link" })
+                </li>
+                @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                {
+                    if ((i + 1) == ViewBag.PageNo)
+                    {
+                        int pgno = i + 1;
+                        <li class="page-item active">
+                            @Html.ActionLink(Convert.ToString(i + 1), "Index", "Categories", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = (i + 1) }, new { @class = "page-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(Convert.ToString(i + 1), "Index", "Categories", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = (i + 1) }, new { @class = "page-link" })
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    @Html.ActionLink("Next", "Index", "Categories", new { SortColumn = ViewBag.SortColumn, IconClass = ViewBag.IconClass, PageNo = NextPageNo }, new { @class = "page-link" })
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+

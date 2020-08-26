@@ -1,0 +1,23 @@
+﻿@model EFDbFirstApproachExample.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Edit Category</h2>
+
+@using (Html.BeginForm("Edit", "Categories", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Category Name")
+            @Html.HiddenFor(x => x.CategoryID)
+            @Html.TextBoxFor(x => x.CategoryName, new { placeholder = "Category Name", @class = "form-control" })
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    @Html.ActionLink("Cancel", "Index", "", new { @class = "btn btn-danger" })
+}
+
