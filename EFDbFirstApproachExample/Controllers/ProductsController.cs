@@ -98,18 +98,29 @@ namespace EFDbFirstApproachExample.Controllers
         [HttpPost]
         public ActionResult Create(Product p)
         {
-            EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
-            if (Request.Files.Count >= 1)
+            if (ModelState.IsValid)
             {
-                var file = Request.Files[0];
-                var imgBytes = new Byte[file.ContentLength];
-                file.InputStream.Read(imgBytes, 0, file.ContentLength);
-                var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
-                p.Photo = base64String;
+                EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
+                if (Request.Files.Count >= 1)
+                {
+                    var file = Request.Files[0];
+                    var imgBytes = new Byte[file.ContentLength];
+                    file.InputStream.Read(imgBytes, 0, file.ContentLength);
+                    var base64String = Convert.ToBase64String(imgBytes, 0, imgBytes.Length);
+                    p.Photo = base64String;
+                }
+                db.Products.Add(p);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            db.Products.Add(p);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            else
+            {
+                EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
+                ViewBag.Categories = db.Categories.ToList();
+                ViewBag.Brands = db.Brands.ToList();
+                return View();
+            }
+
         }
 
         public ActionResult Edit(long id)
@@ -125,16 +136,28 @@ namespace EFDbFirstApproachExample.Controllers
         public ActionResult Edit(Product p)
         {
             EFDBFirstDatabaseEntities db = new EFDBFirstDatabaseEntities();
-            Product existingProduct = db.Products.Where(temp => temp.ProductID == p.ProductID).FirstOrDefault();
-            existingProduct.ProductName = p.ProductName;
-            existingProduct.Price = p.Price;
-            existingProduct.DateOfPurchase = p.DateOfPurchase;
-            existingProduct.CategoryID = p.CategoryID;
-            existingProduct.BrandID = p.BrandID;
-            existingProduct.AvailabilityStatus = p.AvailabilityStatus;
-            existingProduct.Active = p.Active;
-            db.SaveChanges();
-            return RedirectToAction("Index", "Products");
+            if (ModelState.IsValid)
+            {
+                Product existingProduct = db.Products.Where(temp => temp.ProductID == p.ProductID).FirstOrDefault();
+                existingProduct.ProductName = p.ProductName;
+                existingProduct.Price = p.Price;
+                existingProduct.DateOfPurchase = p.DateOfPurchase;
+                existingProduct.CategoryID = p.CategoryID;
+                existingProduct.BrandID = p.BrandID;
+                existingProduct.AvailabilityStatus = p.AvailabilityStatus;
+                existingProduct.Active = p.Active;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Products");
+
+            }
+            else
+            {
+
+                ViewBag.Categories = db.Categories.ToList();
+                ViewBag.Brands = db.Brands.ToList();
+                return View(db.Products.Where(temp => temp.ProductID == p.ProductID).FirstOrDefault());
+            }
+
         }
 
         public ActionResult Delete(long id)

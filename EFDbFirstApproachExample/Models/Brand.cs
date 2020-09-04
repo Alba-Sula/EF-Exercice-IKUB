@@ -10,6 +10,8 @@ namespace EFDbFirstApproachExample.Models
     {
         [Key]
         public long BrandID { get; set; }
+        [Required(ErrorMessage = "Brand Name is required")]
+        [Display(Name = "Brand Name")]
         public string BrandName { get; set; }
     }
 }

@@ -168,9 +168,28 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="CustomValidations\PhotoExtValid.cs" />
+    <Compile Include="CustomValidations\ValidPrice.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008260635074_InitialCreate.cs" />
+    <Compile Include="Migrations\202008260635074_InitialCreate.Designer.cs">
+      <DependentUpon>202008260635074_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009041647204_InitialMigration.cs" />
+    <Compile Include="Migrations\202009041647204_InitialMigration.Designer.cs">
+      <DependentUpon>202009041647204_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009041651447_testingAnotations.cs" />
+    <Compile Include="Migrations\202009041651447_testingAnotations.Designer.cs">
+      <DependentUpon>202009041651447_testingAnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009041711122_CustomValidations.cs" />
+    <Compile Include="Migrations\202009041711122_CustomValidations.Designer.cs">
+      <DependentUpon>202009041711122_CustomValidations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\EFDBFirstDatabaseEntities.cs" />
@@ -212,6 +231,20 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202008260635074_InitialCreate.resx">
+      <DependentUpon>202008260635074_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009041647204_InitialMigration.resx">
+      <DependentUpon>202009041647204_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009041651447_testingAnotations.resx">
+      <DependentUpon>202009041651447_testingAnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009041711122_CustomValidations.resx">
+      <DependentUpon>202009041711122_CustomValidations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
